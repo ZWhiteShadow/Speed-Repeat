@@ -1,21 +1,23 @@
-var challangeArray = [];
-var gamerTestArray = [];
+var challangeArray, gamerTestArray, testNum, score;
 
 function start() {
   challangeArray = [];
   gamerTestArray = [];
+  score = 0;
   nextRound();
 }
 
 function nextRound() {
 
+  testNum = 0;
   // don't let user click on anything
-  document.getElementById('up').setAttribute( "onClick", "" );
-  document.getElementById('left').setAttribute( "onClick", "" );
-  document.getElementById('middle').setAttribute( "onClick", "" );
-  document.getElementById('right').setAttribute( "onClick", "" );
-  document.getElementById('down').setAttribute( "onClick", "" );
-  document.getElementById('message').innerHTML= "Pay Close Attention!";
+  document.getElementById('up').removeAttribute("onclick");
+  document.getElementById('left').removeAttribute("onclick");
+  document.getElementById('right').removeAttribute("onclick");
+  document.getElementById('down').removeAttribute("onclick");
+  document.getElementById('middle').removeAttribute("onclick");
+
+  document.getElementById('message').innerHTML = "Pay Close Attention!";
   var nextChallange = Math.floor(Math.random() * 5) + 1; // Randomly pick next challange up down left right or middle 5 options
   challangeArray.push(nextChallange);
   challangeTime(challangeArray);
@@ -23,30 +25,45 @@ function nextRound() {
 
 function challangeTime(challangeArray) {
   for (i = 0; i < challangeArray.length; i++) {
-    changeColor(challangeArray[i], 3000);
+    changeColor(challangeArray[i], 3500);
   }
 
-  setTimeout(function(){
-  document.getElementById('message').innerHTML= "Click Center First";
-  document.getElementById('middle').setAttribute( "onClick", "answerTest()" );
-}, 6000);
+  setTimeout(function() {
+    document.getElementById('message').innerHTML = "Click Center First";
+    document.getElementById('middle').setAttribute("onClick", "copyMe()");
+  }, 5000);
 }
 
-function answerTest(answerTest){
-  setTimeout(function(){ document.getElementById('message').innerHTML= "Ok Now Copy What I Did"; }, 4000);
+function copyMe() {
+  document.getElementById('message').innerHTML = "Ok Now Copy What I Did";
 
-  document.getElementById('up').setAttribute( "onClick", "answerTest(1)" );
-  document.getElementById('left').setAttribute( "onClick", "answerTest(2)" );
-  document.getElementById('middle').setAttribute( "onClick", "answerTest(3)" );
-  document.getElementById('right').setAttribute( "onClick", "answerTest(4)" );
-  document.getElementById('down').setAttribute( "onClick", "answerTest(5)" );
+  document.getElementById('up').setAttribute("onClick", "answerTest(1)");
+  document.getElementById('left').setAttribute("onClick", "answerTest(2)");
+  document.getElementById('middle').setAttribute("onClick", "answerTest(3)");
+  document.getElementById('right').setAttribute("onClick", "answerTest(4)");
+  document.getElementById('down').setAttribute("onClick", "answerTest(5)");
+}
 
-changeColor(answerTest,1750);
+function answerTest(answerTest) {
+  gamerTestArray.push(answerTest);
+
+  console.log(gamerTestArray[testNum] + " - " + challangeArray[testNum]);
+
+  if (gamerTestArray[testNum] == challangeArray[testNum]) {
+    changeColor(answerTest);
+    testNum += 1;
+    score += 1; // Change so score only increaes if past previous round;
+    document.getElementById('message2').innerHTML = "Your Score: " + score;
+    nextRound(); // Change so that it only switches rounds until after all  have been selected
+  } else {
+    var audio;
+    audio = new Audio('wrong.wav');
+    audio.play();
+  }
 
 }
 
 function changeColor(num, wait) {
-  var audio;
 
   if (num == 1) {
     audio = new Audio('a.wav');
