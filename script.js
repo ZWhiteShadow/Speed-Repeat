@@ -1,7 +1,7 @@
 var challangeArray, gamerTestArray, testNum, score;
 
 function start() {
-  challangeArray = [1,2,3,4,5,1,2,3,4,5];
+  challangeArray = [];
   gamerTestArray = [];
   score = 0;
   nextRound();
