@@ -1,11 +1,12 @@
-var challangeArray, gamerTestArray, testNum, score;
+var challangeArray, gamerTestArray, testNum, score, t0, t1, betterScore;
 
 function start() {
   document.getElementById('title').innerHTML = "Speed Repeat";
   challangeArray = [];
   gamerTestArray = [];
   score = 0;
-  document.getElementById('message2').innerHTML = "Your Score: " + score;
+  betterScore = 0;
+  document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
   nextRound();
 }
 
@@ -23,10 +24,9 @@ function displayChallange(){
   for (var i = 0; i < challangeArray.length; i++) {
     (function (i) {
       setTimeout(function () {
-        changeColor(challangeArray[i],750);
+        changeColor(challangeArray[i], 250 );
        }, (250 + (1000 - i * 50))* i );
       })(i);
-      console.log((250 + (1000 - i * 50)));
      };
  
 }
@@ -49,10 +49,10 @@ function nextRound() {
   document.getElementById('right').setAttribute("onClick", "answerTest(4)");
   document.getElementById('down').setAttribute("onClick", "answerTest(5)");
 }, (challangeArray.length)*(250 + (1000 - score * 50)));
-
+t0 = performance.now();
 }
-
 function answerTest(answerTest) {
+  
   gamerTestArray.push(answerTest);
 
   if (gamerTestArray[testNum] == challangeArray[testNum]) {
@@ -60,8 +60,11 @@ function answerTest(answerTest) {
     testNum += 1;
 
     if(gamerTestArray.length == challangeArray.length){
+    t1 = performance.now();
     score += 1; 
-    document.getElementById('message2').innerHTML = "Your Score: " + score;
+    console.log( Math.floor(( ( (score * 250) / (t1-t0)) * 564 )) );
+    betterScore += Math.floor(( ( (score * 250) / (t1-t0)) * 564 ));
+    document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
     clearClick();
     setTimeout(function() {
     nextRound(); 
