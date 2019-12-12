@@ -73,11 +73,18 @@ function answerTest(answerTest) {
 
     if (gamerTestArray.length == challangeArray.length) {
       betterScore *= bonus;
+
+      if ( (score % 5 == 0) && score != 0) {
+        setTimeout(function () {
+        audio = new Audio('tada.wav');
+        audio.play();
+      }, 500);
+    }
       document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
       clearClick();
       setTimeout(function () {
         nextRound();
-      }, 3000);
+      }, 3500);
     }
 
   } else {
