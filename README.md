@@ -2,7 +2,7 @@
 
 A Memory Game! 
 
-5 options, Up, Down, Left and Right.
+5 options, Up, Down, Left, Right and Center.
 
 I Randomly choose one and add it to a list to copy.
 You copy what I do each round
