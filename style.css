@@ -62,7 +62,7 @@ html{
   background-image: radial-gradient(rgb(211,35,134),rgb(64,16,125));
 }
 .message{
-  font-size: 2em;
+  font-size: 1.75em;
   color: Yellow;
   text-align: center;
   font-family: 'Lobster', cursive;

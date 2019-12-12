@@ -1,4 +1,5 @@
 var challangeArray, gamerTestArray, testNum, score, t0, t1, betterScore;
+const bonus = 1.1;
 
 function start() {
   document.getElementById('title').innerHTML = "Speed Repeat";
@@ -7,6 +8,7 @@ function start() {
   score = 0;
   betterScore = 0;
   document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
+  document.getElementById('message3').innerHTML = "Round: " + score;
   nextRound();
 }
 
@@ -24,8 +26,8 @@ function displayChallange(){
   for (var i = 0; i < challangeArray.length; i++) {
     (function (i) {
       setTimeout(function () {
-        changeColor(challangeArray[i], 250 );
-       }, (250 + (1000 - i * 50))* i );
+        changeColor(challangeArray[i], 500 );
+       }, (500 + (1000 - i * 50))* i );
       })(i);
      };
  
@@ -35,6 +37,8 @@ function nextRound() {
   clearClick();
   gamerTestArray = [];
   testNum = 0;
+  score += 1; 
+  document.getElementById('message3').innerHTML = "Round: " + score;
   document.getElementById('message').innerHTML = "Pay Close Attention!";
   var nextChallange = Math.floor(Math.random() * 5) + 1; // Randomly pick next challange up down left right or middle 5 options
   challangeArray.push(nextChallange);
@@ -48,7 +52,7 @@ function nextRound() {
   document.getElementById('middle').setAttribute("onClick", "answerTest(3)");
   document.getElementById('right').setAttribute("onClick", "answerTest(4)");
   document.getElementById('down').setAttribute("onClick", "answerTest(5)");
-}, (challangeArray.length)*(250 + (1000 - score * 50)));
+}, (challangeArray.length)*(500 + (1000 - score * 50)));
 t0 = performance.now();
 }
 function answerTest(answerTest) {
@@ -56,15 +60,19 @@ function answerTest(answerTest) {
   gamerTestArray.push(answerTest);
 
   if (gamerTestArray[testNum] == challangeArray[testNum]) {
-    changeColor(answerTest,750);
+
+    changeColor(answerTest,250);
     testNum += 1;
 
-    if(gamerTestArray.length == challangeArray.length){
     t1 = performance.now();
-    score += 1; 
-    console.log( Math.floor(( ( (score * 250) / (t1-t0)) * 564 )) );
-    betterScore += Math.floor(( ( (score * 250) / (t1-t0)) * 564 ));
-    document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
+    console.log( (335 / (t1-t0)) * 100 );
+    betterScore += ( (335 / (t1-t0)) * 100 );
+    document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
+    t0 = performance.now();
+
+    if(gamerTestArray.length == challangeArray.length){
+    betterScore *= bonus;
+    document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
     clearClick();
     setTimeout(function() {
     nextRound(); 
