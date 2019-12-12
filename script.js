@@ -1,4 +1,5 @@
-var challangeArray, gamerTestArray, testNum, score, t0, t1, betterScore;
+var challangeArray, gamerTestArray, testNum, 
+score, t0, t1, betterScore, speed, waitTime;
 const bonus = 1.1;
 
 function start() {
@@ -7,6 +8,7 @@ function start() {
   gamerTestArray = [];
   score = 0;
   betterScore = 0;
+  waitTime = 0;
   document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
   document.getElementById('message3').innerHTML = "Round: " + score;
   nextRound();
@@ -26,8 +28,10 @@ function displayChallange() {
   for (var i = 0; i < challangeArray.length; i++) {
     (function (i) {
       setTimeout(function () {
+        speed = (i < 40) ? (2000 - (50 * i)) : 0;
+        waitTime += speed;
         changeColor(challangeArray[i], 500);
-      }, (500 + (1000 - i * 50)) * i);
+      }, (150 + speed) * i);
     })(i);
   };
 
@@ -52,7 +56,8 @@ function nextRound() {
     document.getElementById('middle').setAttribute("onClick", "answerTest(3)");
     document.getElementById('right').setAttribute("onClick", "answerTest(4)");
     document.getElementById('down').setAttribute("onClick", "answerTest(5)");
-  }, (challangeArray.length) * (500 + (1000 - score * 50)));
+
+  }, (waitTime + 2000));
   t0 = performance.now();
 }
 
@@ -62,11 +67,9 @@ function answerTest(answerTest) {
 
   if (gamerTestArray[testNum] == challangeArray[testNum]) {
 
-    changeColor(answerTest, 250);
+    changeColor(answerTest, 500);
     testNum += 1;
-
     t1 = performance.now();
-    console.log((335 / (t1 - t0)) * 100);
     betterScore += ((335 / (t1 - t0)) * 100);
     document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
     t0 = performance.now();
@@ -74,16 +77,17 @@ function answerTest(answerTest) {
     if (gamerTestArray.length == challangeArray.length) {
       betterScore *= bonus;
 
-      if ( (score % 5 == 0) && score != 0) {
+      if ((score % 5 == 0) && score != 0) {
         setTimeout(function () {
-        audio = new Audio('tada.wav');
-        audio.play();
-      }, 500);
-    }
+          audio = new Audio('tada.wav');
+          audio.play();
+        }, 500);
+      }
       document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
       clearClick();
       setTimeout(function () {
         nextRound();
+        waitTime = 0;
       }, 3500);
     }
 
