@@ -28,10 +28,10 @@ function displayChallange() {
   for (var i = 0; i < challangeArray.length; i++) {
     (function (i) {
       setTimeout(function () {
-        speed = (i < 40) ? (2000 - (50 * i)) : 0;
+        speed = (i < 30) ? (1500 - (50 * i)) : 0;
         waitTime += speed;
-        changeColor(challangeArray[i], 500);
-      }, (150 + speed) * i);
+        changeColor(challangeArray[i], 250);
+      }, (250 + speed) * i);
     })(i);
   };
 
@@ -57,7 +57,7 @@ function nextRound() {
     document.getElementById('right').setAttribute("onClick", "answerTest(4)");
     document.getElementById('down').setAttribute("onClick", "answerTest(5)");
 
-  }, (waitTime + 2000));
+  }, (waitTime + 1500));
   t0 = performance.now();
 }
 
@@ -76,7 +76,6 @@ function answerTest(answerTest) {
 
     if (gamerTestArray.length == challangeArray.length) {
       betterScore *= bonus;
-
       if ((score % 5 == 0) && score != 0) {
         setTimeout(function () {
           audio = new Audio('tada.wav');
