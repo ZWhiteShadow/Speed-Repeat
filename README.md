@@ -1,6 +1,7 @@
 # Speed-Repeat
 
 A Memory Game! Try Me: http://bit.ly/2LxPfno
+(I don't work great on a phone) 
 
 5 options, Up, Down, Left, Right and Center.
 
