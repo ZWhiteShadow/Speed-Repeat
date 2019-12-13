@@ -1,6 +1,5 @@
 var challangeArray, gamerTestArray, testNum, 
-score, t0, t1, betterScore, speed, waitTime;
-const bonus = 1.1;
+score, t0, t1, betterScore, speed, waitTime, bonus; 
 
 function start() {
   document.getElementById('title').innerHTML = "Speed Repeat";
@@ -9,6 +8,7 @@ function start() {
   score = 0;
   betterScore = 0;
   waitTime = 0;
+  bonus = 1;
   document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
   document.getElementById('message3').innerHTML = "Round: " + score;
   nextRound();
@@ -28,10 +28,10 @@ function displayChallange() {
   for (var i = 0; i < challangeArray.length; i++) {
     (function (i) {
       setTimeout(function () {
-        speed = (i < 30) ? (1500 - (50 * i)) : 0;
-        waitTime += speed;
+       speed = (i < 15) ? (1500 - (100 * i)) : 0;
+       waitTime += speed;
         changeColor(challangeArray[i], 250);
-      }, (250 + speed) * i);
+      }, (350 + speed) * i);
     })(i);
   };
 
@@ -57,7 +57,7 @@ function nextRound() {
     document.getElementById('right').setAttribute("onClick", "answerTest(4)");
     document.getElementById('down').setAttribute("onClick", "answerTest(5)");
 
-  }, (waitTime + 1500));
+  }, ( waitTime + 1500));
   t0 = performance.now();
 }
 
@@ -75,7 +75,10 @@ function answerTest(answerTest) {
     t0 = performance.now();
 
     if (gamerTestArray.length == challangeArray.length) {
+
+      bonus += ( (betterScore/score) / 1000)
       betterScore *= bonus;
+
       if ((score % 5 == 0) && score != 0) {
         setTimeout(function () {
           audio = new Audio('tada.wav');
