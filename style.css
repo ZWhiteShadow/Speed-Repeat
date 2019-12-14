@@ -96,16 +96,17 @@ margin-bottom: 15px;
 }
 
 input {
+  border: 1px solid rgb(211, 35, 134);
   margin: 0px auto; 
   display: block;
   text-align:center;
   background: transparent;
-  border: none;
   color: Yellow;
   padding: 5px;
-  width: 300px;
+  margin-bottom: 10px;
+  width: 400px;
   font-family: 'Lobster', cursive;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 ::placeholder {
   color: yellow;
