@@ -1,6 +1,7 @@
 # Speed-Repeat
 
-A Memory Game! 
+A Memory Game! Try Me: http://bit.ly/2LxPfno
+(I don't work great on a phone) 
 
 5 options, Up, Down, Left, Right and Center.
 
@@ -10,5 +11,3 @@ I then go faster and faster!
 
 Score is based off your reaction time!
 What score can you get!
-
-Try Me: http://bit.ly/2LxPfno
