@@ -1,3 +1,10 @@
+div {
+  width: 515px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 table {
   margin-left: auto;
   margin-right: auto;
@@ -70,10 +77,10 @@ html {
   text-shadow: 2px 2px #ff0000;
 }
 .score {
-  
+  top: 8px;
   display: inline-block;
   width: 500px;
-  height: 505px;
+  height: 682px;
   position: fixed;
   text-align: center;
   font-size: 1.75em;

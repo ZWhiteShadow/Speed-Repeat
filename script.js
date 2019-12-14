@@ -13,7 +13,7 @@
 
 playerArray = [];
 roundArray = [];
- for (i = 0; i < 9; i++) {
+ for (i = 0; i < 13; i++) {
    playerArray.push("NPC"); //Fills Payer name Column on Table with NPC
    roundArray.push("NA"); //Fills Round Column  on Table with NA
  }
@@ -22,7 +22,7 @@ roundArray = [];
 
  //randomly add scores scores to scoreArray done only once
  (() => {
-   for (let i = 0; i < 10; i++) {
+   for (let i = 0; i < 13; i++) {
      scoreArray.push(Math.floor(Math.random() * 8142));
    }
  })()
@@ -44,7 +44,7 @@ roundArray = [];
    playerArray.pop();
 
    //re-display all other data
-   for (let i = 0; i < 10; i++) {
+   for (let i = 0; i < 13; i++) {
      document.getElementById("" + i + 0).innerHTML = playerArray[i].toLocaleString()
      document.getElementById("" + i + 1).innerHTML = roundArray[i].toLocaleString()
      document.getElementById("" + i + 2).innerHTML = scoreArray[i].toLocaleString()
@@ -264,4 +264,4 @@ roundArray = [];
  //feel free to email me at ZWhiteShadow@Yahoo.com
  //and tell me what you think
 
- //Game completed on 12/12/19
+ //Last Update 12/14/2019
