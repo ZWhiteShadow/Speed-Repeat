@@ -69,3 +69,44 @@ html {
   font-family: 'Lobster', cursive;
   text-shadow: 2px 2px #ff0000;
 }
+.score {
+  
+  display: inline-block;
+  width: 500px;
+  height: 505px;
+  position: fixed;
+  text-align: center;
+  font-size: 1.75em;
+  color: Yellow;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  text-shadow: 2px 2px #ff0000;
+}
+
+.score2 {
+  width:100%
+}
+
+caption, th {
+margin-bottom: 15px;
+}
+
+.score3{
+  border: 1px solid rgb(211, 35, 134);
+}
+
+input {
+  margin: 0px auto; 
+  display: block;
+  text-align:center;
+  background: transparent;
+  border: none;
+  color: Yellow;
+  padding: 5px;
+  width: 300px;
+  font-family: 'Lobster', cursive;
+  font-size: 1.5em;
+}
+::placeholder {
+  color: yellow;
+}

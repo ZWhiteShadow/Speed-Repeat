@@ -6,7 +6,39 @@ var challangeArray, //corect answers
   betterScore, // total score displayed for user
   speed, // how long before each challange is displayed
   waitTime, // time before allowing user to try the challange
-  bonus; // extra amount to award client based on how well they have done so far
+  scoreArray; //Stores gamers scores
+
+playerArray = ["NPC", "NPC", "NPC", "NPC", "NPC", "NPC", "NPC", "NPC", "NPC", "NPC"];
+roundArray = ["NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA"]
+scoreArray = [];
+
+//randomly add scores scores to scoreArray done only once
+(() => {
+  for (let i = 0; i < 10; i++) {
+    scoreArray.push(Math.floor(Math.random() * 1000) + 1);
+  }
+})()
+
+//Sort and fill table
+function fillTable(playerName, playerRound, playerScore, ) {
+  //add players score to stable
+  scoreArray.push(playerScore);
+  //sort score in descending order
+  scoreArray.sort((a, b) => b - a);
+  //add player name and round to places in table next to score
+  roundArray.splice(scoreArray.indexOf(playerScore), 0, playerRound);
+  playerArray.splice(scoreArray.indexOf(playerScore), 0, playerName);
+
+  //re-display all other data
+  for (let i = 0; i < 10; i++) {
+    document.getElementById("" + i + 0).innerHTML = playerArray[i].toLocaleString()
+    document.getElementById("" + i + 1).innerHTML = roundArray[i].toLocaleString()
+    document.getElementById("" + i + 2).innerHTML = scoreArray[i].toLocaleString()
+  }
+}
+
+//call table first time
+fillTable(0, 0, 0);
 
 function start() { //runds with first click at start of game // and last click on center at end of game
   document.getElementById('title').innerHTML = "Speed Repeat"; // Change back title from game over
@@ -21,7 +53,7 @@ function start() { //runds with first click at start of game // and last click o
 
   //reset messages
   document.getElementById('message2').innerHTML = "Your Score: " + betterScore;
-  document.getElementById('message3').innerHTML = "Round: " + round;
+  // document.getElementById('message3').innerHTML = "Round: " + round;
 
   // Start the first round of the new game
   nextRound();
@@ -46,7 +78,7 @@ function displayChallange() {
       setTimeout(function () {
 
         //speed up by 1/10 0f a second each time for the first 15 rounds
-        speed = (i < 15) ? (1500 - (100 * i)) : 0;
+        speed = (i < 10) ? (1000 - (100 * i)) : 0;
         //determine how long to wait to change message to "Ok Now Copy What I Did"
         waitTime += speed;
         //visualy show color change
@@ -68,6 +100,7 @@ function nextRound() {
   round += 1; //counter for the next round
 
   //update messages
+
   document.getElementById('message3').innerHTML = "Round: " + round;
   document.getElementById('message').innerHTML = "Pay Close Attention!";
 
@@ -109,15 +142,21 @@ function answerTest(answerTest) {
     betterScore += ((335 / (t1 - t0)) * 100);
     //Display new score
     document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
+
+    //Add Score to Table
+    fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+
     //Start counter over
     t0 = performance.now();
 
     // if the whole round is correct:
     if (gamerTestArray.length == challangeArray.length) {
-
-      //bonus based on overal performance so far
-      bonus += ((betterScore / round) / 1000)
-      betterScore *= bonus;
+    
+      betterScore *= (1 + (round/10))
+      //Add Score to Table
+      fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+      //Show score
+      document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
 
       //Every 5 rounds play a "tada" sound
       if ((round % 5 == 0) && round != 0) {
