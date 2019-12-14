@@ -15,7 +15,7 @@ scoreArray = [];
 //randomly add scores scores to scoreArray done only once
 (() => {
   for (let i = 0; i < 10; i++) {
-    scoreArray.push(Math.floor(Math.random() * 1000) + 1);
+    scoreArray.push(Math.floor(Math.random() * 5000) + 1);
   }
 })()
 
@@ -25,6 +25,8 @@ function fillTable(playerName, playerRound, playerScore, ) {
   scoreArray.push(playerScore);
   //sort score in descending order
   scoreArray.sort((a, b) => b - a);
+  //remove The last score so it doesn't grow forever
+  scoreArray.pop();
   //add player name and round to places in table next to score
   roundArray.splice(scoreArray.indexOf(playerScore), 0, playerRound);
   playerArray.splice(scoreArray.indexOf(playerScore), 0, playerName);
@@ -143,16 +145,13 @@ function answerTest(answerTest) {
     //Display new score
     document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
 
-    //Add Score to Table
-    fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
-
     //Start counter over
     t0 = performance.now();
 
     // if the whole round is correct:
     if (gamerTestArray.length == challangeArray.length) {
     
-      betterScore *= (1 + (round/10))
+      betterScore *= (1 + (round/50))
       //Add Score to Table
       fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
       //Show score
@@ -178,7 +177,11 @@ function answerTest(answerTest) {
 
     // Gamer Gets it wrong!
   } else {
-    // no more clicks!
+
+     //Add Score to Table
+     fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+  
+     // no more clicks!
     clearClick();
     //play the "wrong" sound
     var audio;
