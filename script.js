@@ -6,26 +6,10 @@
    betterScore, // total score displayed for user
    speed, // how long before each challange is displayed
    waitTime, // time before allowing user to try the challange
-   scoreArray; //Stores gamers scores
-   playerArray = []; // Save player scores
-   roundArray = []; // Save player rounds high scores
-   scoreArray = []; // Save Player scores
-
-playerArray = [];
-roundArray = [];
- for (i = 0; i < 13; i++) {
-   playerArray.push("NPC"); //Fills Payer name Column on Table with NPC
-   roundArray.push("NA"); //Fills Round Column  on Table with NA
- }
-
-//Creates an Array to save scores
-
- //randomly add scores scores to scoreArray done only once
- (() => {
-   for (let i = 0; i < 13; i++) {
-     scoreArray.push(Math.floor(Math.random() * 8142));
-   }
- })()
+   scoreArray, //Stores gamers scores
+ playerArray = [], // Save player scores
+ roundArray = [], // Save player rounds high scores
+ scoreArray = []; // Save Player scores
 
  //Sort and fill table
  function fillTable(playerName, playerRound, playerScore, ) {
@@ -38,21 +22,29 @@ roundArray = [];
    roundArray.splice(scoreArray.indexOf(playerScore), 0, playerRound);
    playerArray.splice(scoreArray.indexOf(playerScore), 0, playerName);
 
-   //remove The last score so it doesn't grow forever
-   scoreArray.pop();
-   roundArray.pop();
-   playerArray.pop();
+   //create table variables
+   var table = document.getElementById("myTable");
+   var table2 = document.getElementById("myTable").rows
+   // insert row
+   var row = table.insertRow(0);
+   // create three cells in row
+   var cell1 = row.insertCell(0);
+   var cell2 = row.insertCell(1);
+   var cell3 = row.insertCell(2);
 
-   //re-display all other data
-   for (let i = 0; i < 13; i++) {
-     document.getElementById("" + i + 0).innerHTML = playerArray[i].toLocaleString()
-     document.getElementById("" + i + 1).innerHTML = roundArray[i].toLocaleString()
-     document.getElementById("" + i + 2).innerHTML = scoreArray[i].toLocaleString()
+   //Red display all scores in proper order
+   for (var i = 0; i < table2.length; i++) {
+     table.rows[i].cells[0].innerHTML = playerArray[i].toLocaleString()
+     table.rows[i].cells[1].innerHTML = roundArray[i].toLocaleString()
+     table.rows[i].cells[2].innerHTML = scoreArray[i].toLocaleString()
    }
+
  }
 
- //call table first time add son's highest score!
- fillTable("Maho", 14, 8142);
+ //Create Header
+ fillTable("Player:", "Round:", "Score:");
+ //Add Son's High Score
+ fillTable("Maho", 14, 8142); 
 
  function start() { //runds with first click at start of game // and last click on center at end of game
    document.getElementById('title').innerHTML = "Speed Repeat"; // Change back title from game over
@@ -163,18 +155,20 @@ roundArray = [];
      // if the whole round is correct:
      if (gamerTestArray.length == challangeArray.length) {
 
-       //Add Score to Table
-       fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+       //Add Score to Table if round score is higher or there is no score for that round
+       if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)){
+        setTimeout(function () {
+          audio = new Audio('tada.wav');
+          audio.play();
+        }, 500);
+       }
+
+       if (roundArray.indexOf(round) == -1 || scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
+         fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+       }
+
        //Show score
        document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
-
-       //Every 5 rounds play a "tada" sound
-       if ((round % 5 == 0) && round != 0) {
-         setTimeout(function () {
-           audio = new Audio('tada.wav');
-           audio.play();
-         }, 500);
-       }
 
        //Keep user from clicking on any options
        clearClick();
@@ -189,8 +183,16 @@ roundArray = [];
      // Gamer Gets it wrong!
    } else {
 
-     //Add Score to Table
-     fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round - 1, Math.floor(betterScore));
+    if (roundArray.indexOf(round - 1) > -1 && scoreArray[roundArray.indexOf(round -1 )] < Math.floor(betterScore)){
+      setTimeout(function () {
+        audio = new Audio('tada.wav');
+        audio.play();
+      }, 500);
+     }
+       //Add Score to Table if round score is higher or there is no score for that round
+       if ( (roundArray.indexOf(round - 1) == -1 || scoreArray[roundArray.indexOf(round - 1)] < Math.floor(betterScore)) && (round -1 > 0)) {
+         fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round - 1, Math.floor(betterScore));
+       }
 
      // no more clicks!
      clearClick();
@@ -264,4 +266,4 @@ roundArray = [];
  //feel free to email me at ZWhiteShadow@Yahoo.com
  //and tell me what you think
 
- //Last Update 12/14/2019
+ //Last Update 12/16/2019
