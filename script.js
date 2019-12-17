@@ -156,16 +156,8 @@
      if (gamerTestArray.length == challangeArray.length) {
 
        //Add Score to Table if round score is higher or there is no score for that round
-       if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)){
-        setTimeout(function () {
-          audio = new Audio('tada.wav');
-          audio.play();
-        }, 500);
-       }
+       highScore();
 
-       if (roundArray.indexOf(round) == -1 || scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
-         fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
-       }
 
        //Show score
        document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
@@ -182,6 +174,9 @@
 
      // Gamer Gets it wrong!
    } else {
+     
+     //Add Score to Table if round score is higher or there is no score for that round
+    highScore();
 
      // no more clicks!
      clearClick();
@@ -202,6 +197,19 @@
      return;
    }
 
+ }
+
+ function highScore() {
+  if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)){
+    setTimeout(function () {
+      audio = new Audio('tada.wav');
+      audio.play();
+    }, 500);
+   }
+
+   if (roundArray.indexOf(round) == -1 || scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
+     fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+   }
  }
 
  // changes html num (1=up, 2=left, 3=middle, 4=right 5=down) for a given number of seconds "wait"
