@@ -183,17 +183,6 @@
      // Gamer Gets it wrong!
    } else {
 
-    if (roundArray.indexOf(round - 1) > -1 && scoreArray[roundArray.indexOf(round -1 )] < Math.floor(betterScore)){
-      setTimeout(function () {
-        audio = new Audio('tada.wav');
-        audio.play();
-      }, 500);
-     }
-       //Add Score to Table if round score is higher or there is no score for that round
-       if ( (roundArray.indexOf(round - 1) == -1 || scoreArray[roundArray.indexOf(round - 1)] < Math.floor(betterScore)) && (round -1 > 0)) {
-         fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round - 1, Math.floor(betterScore));
-       }
-
      // no more clicks!
      clearClick();
      //play the "wrong" sound
