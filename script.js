@@ -181,7 +181,7 @@
      clearClick();
      //play the "wrong" sound
      var audio;
-     audio = new Audio('wrong.wav');
+     audio = new Audio('sounds/wrong.wav');
      audio.play();
 
      //let user know its game over
@@ -202,14 +202,14 @@
    if ((scoreArray[1] < betterScore) && (gameOver == true)) {
        fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
        setTimeout(function () {
-         audio = new Audio('highscore.wav');
+         audio = new Audio('sounds/highscore.wav');
          audio.play();
        }, 500);
        
      } else {
        if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
          setTimeout(function () {
-           audio = new Audio('tada.wav');
+           audio = new Audio('sounds/tada.wav');
            audio.play();
          }, 500);
        }
@@ -226,7 +226,7 @@
 
      switch (num) {
        case 1:
-         audio = new Audio('a.wav');
+         audio = new Audio('sounds/a.wav');
          audio.play();
          document.getElementById("up").style.borderBottom = "9.375em solid darkred";
          setTimeout(function () {
@@ -234,7 +234,7 @@
          }, wait);
          break;
        case 2:
-         audio = new Audio('b.wav');
+         audio = new Audio('sounds/b.wav');
          audio.play();
          document.getElementById("left").style.borderRight = "9.375em solid chocolate";
          setTimeout(function () {
@@ -242,7 +242,7 @@
          }, wait);
          break;
        case 3:
-         audio = new Audio('c.wav');
+         audio = new Audio('sounds/c.wav');
          audio.play();
          document.getElementById("middle").style.backgroundColor = "#999900";
          setTimeout(function () {
@@ -250,7 +250,7 @@
          }, wait);
          break;
        case 4:
-         audio = new Audio('d.wav');
+         audio = new Audio('sounds/d.wav');
          audio.play();
          document.getElementById("right").style.borderLeft = "9.375em solid darkgreen";
          setTimeout(function () {
@@ -258,7 +258,7 @@
          }, wait);
          break;
        case 5:
-         audio = new Audio('e.wav');
+         audio = new Audio('sounds/e.wav');
          audio.play();
          document.getElementById("down").style.borderTop = "9.375em solid darkblue";
          setTimeout(function () {
