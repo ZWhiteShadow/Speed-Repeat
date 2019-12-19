@@ -7,9 +7,9 @@
    speed, // how long before each challange is displayed
    waitTime, // time before allowing user to try the challange
    scoreArray, //Stores gamers scores
- playerArray = [], // Save player scores
- roundArray = [], // Save player rounds high scores
- scoreArray = []; // Save Player scores
+   playerArray = [], // Save player scores
+   roundArray = [], // Save player rounds high scores
+   scoreArray = []; // Save Player scores
 
  //Sort and fill table
  function fillTable(playerName, playerRound, playerScore, ) {
@@ -44,7 +44,7 @@
  //Create Header
  fillTable("Player:", "Round:", "Score:");
  //Add Son's High Score
- fillTable("Maho", 14, 8142); 
+ fillTable("Maho", 14, 8142);
 
  function start() { //runds with first click at start of game // and last click on center at end of game
    document.getElementById('title').innerHTML = "Speed Repeat"; // Change back title from game over
@@ -156,8 +156,7 @@
      if (gamerTestArray.length == challangeArray.length) {
 
        //Add Score to Table if round score is higher or there is no score for that round
-       highScore();
-
+       highScore(false);
 
        //Show score
        document.getElementById('message2').innerHTML = "Your Score: " + Math.floor(betterScore).toLocaleString();
@@ -174,9 +173,9 @@
 
      // Gamer Gets it wrong!
    } else {
-     
+
      //Add Score to Table if round score is higher or there is no score for that round
-    highScore();
+     highScore(true);
 
      // no more clicks!
      clearClick();
@@ -199,68 +198,77 @@
 
  }
 
- function highScore() {
-  if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)){
-    setTimeout(function () {
-      audio = new Audio('tada.wav');
-      audio.play();
-    }, 500);
+ function highScore(gameOver) {
+   if ((scoreArray[1] < betterScore) && (gameOver == true)) {
+       fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+       setTimeout(function () {
+         audio = new Audio('highscore.wav');
+         audio.play();
+       }, 500);
+       
+     } else {
+       if (roundArray.indexOf(round) > -1 && scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
+         setTimeout(function () {
+           audio = new Audio('tada.wav');
+           audio.play();
+         }, 500);
+       }
+
+       if (roundArray.indexOf(round) == -1 || scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
+         fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+       }
+     }
    }
 
-   if (roundArray.indexOf(round) == -1 || scoreArray[roundArray.indexOf(round)] < Math.floor(betterScore)) {
-     fillTable(document.getElementById('highscore').value == "" ? "Player" : document.getElementById('highscore').value, round, Math.floor(betterScore));
+   // changes html num (1=up, 2=left, 3=middle, 4=right 5=down) for a given number of seconds "wait"
+   //and plays a sound for each 
+   function changeColor(num, wait) {
+
+     switch (num) {
+       case 1:
+         audio = new Audio('a.wav');
+         audio.play();
+         document.getElementById("up").style.borderBottom = "9.375em solid darkred";
+         setTimeout(function () {
+           document.getElementById("up").style.borderBottom = "9.375em solid #FF2400";
+         }, wait);
+         break;
+       case 2:
+         audio = new Audio('b.wav');
+         audio.play();
+         document.getElementById("left").style.borderRight = "9.375em solid chocolate";
+         setTimeout(function () {
+           document.getElementById("left").style.borderRight = "9.375em solid orange";
+         }, wait);
+         break;
+       case 3:
+         audio = new Audio('c.wav');
+         audio.play();
+         document.getElementById("middle").style.backgroundColor = "#999900";
+         setTimeout(function () {
+           document.getElementById("middle").style.backgroundColor = "#FFF205";
+         }, wait);
+         break;
+       case 4:
+         audio = new Audio('d.wav');
+         audio.play();
+         document.getElementById("right").style.borderLeft = "9.375em solid darkgreen";
+         setTimeout(function () {
+           document.getElementById("right").style.borderLeft = "9.375em solid #7CFF01";
+         }, wait);
+         break;
+       case 5:
+         audio = new Audio('e.wav');
+         audio.play();
+         document.getElementById("down").style.borderTop = "9.375em solid darkblue";
+         setTimeout(function () {
+           document.getElementById("down").style.borderTop = "9.375em solid #01CFF4";
+         }, wait);
+     }
    }
- }
 
- // changes html num (1=up, 2=left, 3=middle, 4=right 5=down) for a given number of seconds "wait"
- //and plays a sound for each 
- function changeColor(num, wait) {
+   //Hope you enjoyed checking out my code 
+   //feel free to email me at ZWhiteShadow@Yahoo.com
+   //and tell me what you think
 
-   switch (num) {
-     case 1:
-       audio = new Audio('a.wav');
-       audio.play();
-       document.getElementById("up").style.borderBottom = "9.375em solid darkred";
-       setTimeout(function () {
-         document.getElementById("up").style.borderBottom = "9.375em solid #FF2400";
-       }, wait);
-       break;
-     case 2:
-       audio = new Audio('b.wav');
-       audio.play();
-       document.getElementById("left").style.borderRight = "9.375em solid chocolate";
-       setTimeout(function () {
-         document.getElementById("left").style.borderRight = "9.375em solid orange";
-       }, wait);
-       break;
-     case 3:
-       audio = new Audio('c.wav');
-       audio.play();
-       document.getElementById("middle").style.backgroundColor = "#999900";
-       setTimeout(function () {
-         document.getElementById("middle").style.backgroundColor = "#FFF205";
-       }, wait);
-       break;
-     case 4:
-       audio = new Audio('d.wav');
-       audio.play();
-       document.getElementById("right").style.borderLeft = "9.375em solid darkgreen";
-       setTimeout(function () {
-         document.getElementById("right").style.borderLeft = "9.375em solid #7CFF01";
-       }, wait);
-       break;
-     case 5:
-       audio = new Audio('e.wav');
-       audio.play();
-       document.getElementById("down").style.borderTop = "9.375em solid darkblue";
-       setTimeout(function () {
-         document.getElementById("down").style.borderTop = "9.375em solid #01CFF4";
-       }, wait);
-   }
- }
-
- //Hope you enjoyed checking out my code 
- //feel free to email me at ZWhiteShadow@Yahoo.com
- //and tell me what you think
-
- //Last Update 12/16/2019
+   //Completed 12/18/19
